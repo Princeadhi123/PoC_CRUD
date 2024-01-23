@@ -1,0 +1,39 @@
+-- Create the Articles table
+CREATE TABLE articles (
+    id SERIAL PRIMARY KEY,
+    filename VARCHAR(255),
+    source_url VARCHAR(255),
+    title VARCHAR(255),
+    author VARCHAR(255),
+    is_copyrighted BOOLEAN,
+    keywords VARCHAR(255),
+    created_at DATE,
+    updated_at DATE
+);
+
+-- Create the ArticleGeneratedQna table
+CREATE TABLE article_generated_qna (
+    id SERIAL PRIMARY KEY,
+    article_id INTEGER REFERENCES articles(id),
+    question VARCHAR(255),
+    answer TEXT,
+    paragraph TEXT,
+    is_user_edited BOOLEAN,
+    created_at DATE,
+    updated_at DATE
+);
+
+-- Insert data into Articles table
+INSERT INTO articles (id, filename, source_url, title, author, is_copyrighted, keywords, created_at, updated_at)
+VALUES
+    ('1', 'filename', 's3_path', 'My Article', 'John Doe', false, 'wordA wordB wordC', '2023-11-19', '2023-11-19'),
+    ('2', 'filename', 's3_path', 'My Article', 'John Doe', false, 'wordA wordB wordC', '2023-11-19', '2023-11-19'),
+    ('3', 'filename', 's3_path', 'My Article', 'John Doe', false, 'wordA wordB wordC', '2023-11-19', '2023-11-19'),
+    ('4', 'filename', 's3_path', 'My Article', 'John Doe', false, 'wordA wordB wordC', '2023-11-19', '2023-11-19');
+
+-- Insert data into ArticleGeneratedQna table
+INSERT INTO article_generated_qna (id, article_id, question, answer, paragraph, is_user_edited, created_at, updated_at)
+VALUES
+    ('1', '1', 'Is climate change real?', 'yes', 'abc...', false, '2023-11-20', 'date'),
+    ('2', '2', 'Is climate change real?', 'yes', 'abc...', true, '2023-11-20', 'date'),
+    ('3', '3', 'Is climate change real?', 'yes', 'abc...', false, '2023-11-20', 'date');
